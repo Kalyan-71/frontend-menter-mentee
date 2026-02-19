@@ -1,0 +1,140 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #a8e6cf, #dcedc1);
+}
+
+.outerbox {
+  width: 350px;
+  background-color: white;
+  border-radius: 30px;
+  padding: 40px 30px;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  background-color: #a8e6cf;
+  border-radius: 50%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  color: white;
+  font-weight: bold;
+}
+
+.outerbox h2 {
+  margin-top: 15px;
+  color: #3e6b4f;
+}
+
+.outerbox h4 {
+  margin-top: 5px;
+  font-weight: normal;
+  color: #7fae92;
+}
+
+.floating-label {
+  position: relative;
+  margin-top: 25px;
+  width: 100%;
+}
+
+.floating-label input {
+  width: 100%;
+  padding: 15px 15px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: 1px solid #7fae92;
+  background-color: #a8e6cf23;
+  text-align: left;
+  outline: none;
+}
+
+.floating-label label {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7fae92;
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.3s ease all;
+  background-color: white;
+  padding: 0 5px;
+}
+
+.floating-label input:focus + label,
+.floating-label input:not(:placeholder-shown) + label {
+  top: -10px;
+  font-size: 12px;
+  color: #3e6b4f;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #7fae92;
+  transition: color 0.3s;
+}
+
+.password-toggle:hover {
+  color: #3e6b4f;
+}
+
+.password-toggle svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.login button {
+  width: 100%;
+  margin-top: 35px;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 15px;
+  border: 2px solid #7fae92;
+  background-color: #7fae92;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login button:hover {
+  background-color: white;
+  color: #7fae92;
+}
+
+.signup {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #7fae92;
+}
+
+.signup a {
+  text-decoration: none;
+  color: #3e6b4f;
+  font-weight: bold;
+}
+
+.signup a:hover {
+  text-decoration: underline;
+}

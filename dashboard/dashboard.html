@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Mentor Mentee</title>
+    <link rel="stylesheet" href="./dashboard.css">
+    <link rel="stylesheet" href="../utils/toast.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <div class="navbar-logo">L</div>
+            <span class="navbar-title">Mentor - Mentee</span>
+        </div>
+        <div class="navbar-actions">
+            <span class="user-info">Welcome, <strong id="username">User</strong></span>
+            <button class="logout-btn" onclick="handleLogout()">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="welcome-section">
+            <h1>Welcome to Your Dashboard! 👋</h1>
+            <p>Track your mentoring journey and connect with amazing people</p>
+            <span class="role-badge" id="userRole">Mentee</span>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <div class="card-icon">👥</div>
+                <h3>Connections</h3>
+                <p>Your active mentor/mentee connections</p>
+                <div class="card-value">12</div>
+                <button class="btn-card" onclick="alert('View Connections feature coming soon!')">View All</button>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">📅</div>
+                <h3>Upcoming Sessions</h3>
+                <p>Scheduled mentoring sessions</p>
+                <div class="card-value">5</div>
+                <button class="btn-card" onclick="alert('View Sessions feature coming soon!')">Schedule Now</button>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">💬</div>
+                <h3>Messages</h3>
+                <p>Unread messages from your network</p>
+                <div class="card-value">8</div>
+                <button class="btn-card" onclick="alert('Messages feature coming soon!')">Open Inbox</button>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🎯</div>
+                <h3>Goals Achieved</h3>
+                <p>Your learning milestones</p>
+                <div class="card-value">23</div>
+                <button class="btn-card" onclick="alert('Goals feature coming soon!')">Set New Goal</button>
+            </div>
+        </div>
+
+        <div class="activity-section">
+            <h2>Recent Activity</h2>
+            
+            <div class="activity-item">
+                <div class="activity-icon">✨</div>
+                <div class="activity-content">
+                    <h4>New Connection Request</h4>
+                    <p>Sarah Johnson wants to connect with you</p>
+                </div>
+                <span class="activity-time">2 hours ago</span>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-icon">📚</div>
+                <div class="activity-content">
+                    <h4>Session Completed</h4>
+                    <p>You completed a session on "Career Development"</p>
+                </div>
+                <span class="activity-time">1 day ago</span>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-icon">🏆</div>
+                <div class="activity-content">
+                    <h4>Goal Achieved</h4>
+                    <p>Congratulations! You've completed your weekly target</p>
+                </div>
+                <span class="activity-time">2 days ago</span>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-icon">💡</div>
+                <div class="activity-content">
+                    <h4>New Resource Shared</h4>
+                    <p>Your mentor shared "Leadership Best Practices" with you</p>
+                </div>
+                <span class="activity-time">3 days ago</span>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./dashboard.js"></script>
+</body>
+</html>

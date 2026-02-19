@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./login.css">
+    <link rel="stylesheet" href="../utils/toast.css">
+</head>
+<body>
+    <div class="outerbox">
+        <div class="logo">L</div>
+        <h2>Mentor - Mentee</h2>
+        <h4>Enter your career path</h4>
+
+        <div class="floating-label">
+            <input id="email" type="text" placeholder=" " required>
+            <label>Email</label>
+        </div>
+
+        <div class="floating-label">
+            <input type="password" id="password" placeholder=" " required>
+            <label>Password</label>
+            <span class="password-toggle" onclick="togglePassword()">
+                <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+            </span>
+        </div>
+
+        <div class="login">
+            <button onclick="handleLogin()">Login</button>
+        </div>
+
+        <div class="signup">
+            Don't have an account? <a href="../sign up page/signUp.html" >Sign up</a>
+        </div>
+    </div>
+
+  <script type="module" src="login.js"></script>
+</body>
+</html>

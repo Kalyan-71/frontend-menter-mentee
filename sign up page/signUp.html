@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="signUp.css">
+    <link rel="stylesheet" href="../utils/toast.css">
+
+</head>
+<body>
+    <div class="outerbox">
+        <div class="logo">L</div>
+        <h2>Mentor - Mentee</h2>
+        <h4>Begin your career path</h4>
+
+        <div class="floating-label">
+            <input type="text" placeholder=" " required>
+            <label>Full Name</label>
+        </div>
+
+        <div class="floating-label">
+            <input type="email" placeholder=" " required>
+            <label>Email Address</label>
+        </div>
+
+        <div class="floating-label">
+            <input type="text" placeholder=" " required>
+            <label>Username</label>
+        </div>
+
+        <div class="floating-label" id="roleSelect">
+            <select required onchange="updateSelectLabel()">
+                <option value="" disabled selected></option>
+                <option value="mentor">Mentor</option>
+                <option value="mentee">Mentee</option>
+            </select>
+            <label>Select Role</label>
+        </div>
+
+        <div class="floating-label">
+            <input type="password" id="password" placeholder=" " required>
+            <label>Password</label>
+            <span class="password-toggle" onclick="togglePassword('password', 'eyeIcon1')">
+                <svg id="eyeIcon1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+            </span>
+        </div>
+
+        <div class="floating-label">
+            <input type="password" id="confirmPassword" placeholder=" " required>
+            <label>Confirm Password</label>
+            <span class="password-toggle" onclick="togglePassword('confirmPassword', 'eyeIcon2')">
+                <svg id="eyeIcon2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+            </span>
+        </div>
+
+        <div class="signup-btn">
+            <button onclick="handleSignup()">Sign Up</button>
+        </div>
+
+        <div class="login-link">
+            Already have an account? <a href="../login page/login.html">Login</a>
+        </div>
+    </div>
+
+   
+    <script type="module" src="signUp.js"></script>
+    
+</body>
+</html>
