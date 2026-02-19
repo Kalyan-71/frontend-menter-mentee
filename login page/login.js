@@ -1,6 +1,6 @@
 import { loginUser } from "../Backend routes/user.js";
 import { notify } from "../utils/toast.js";
-
+import {setItem} from "../utils/localstorage.js"
 function togglePassword() {
     const passwordInput = document.getElementById('password');
     const eyeIcon = document.getElementById('eyeIcon');
