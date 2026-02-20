@@ -1,20 +1,20 @@
 import { notify } from "../utils/toast.js";
-// Simulate getting user data (in real app, this would come from server/session)
+import { getItem } from "../utils/localstorage.js";
+import { logoutUser } from "../Backend routes/user.js";
+
+
 function loadUserData() {
-    // You can customize this based on actual login data
-    const username = localStorage.getItem('username') || 'User';
-    const role = localStorage.getItem('role') || 'Mentee';
+    const user = getItem("CURRENT-USER");
+
+    document.getElementById('username').textContent = user.username;
+    document.getElementById('userRole').textContent = user.role;
     
-    document.getElementById('username').textContent = username;
-    document.getElementById('userRole').textContent = role;
 }
 
-function handleLogout() {
-
+async function handleLogout() {
+  await logoutUser();
 }
 
-// Load user data on page load
 window.onload = loadUserData;
-
 window.handleLogout = handleLogout;
 window.loadUserData = loadUserData;
