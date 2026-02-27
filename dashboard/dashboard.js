@@ -15,6 +15,12 @@ async function handleLogout() {
   await logoutUser();
 }
 
+
+function goToGoalsTracker(){
+  window.location.href = "../goals tracker/goals-tracker.html";
+}
+
 window.onload = loadUserData;
 window.handleLogout = handleLogout;
 window.loadUserData = loadUserData;
+window.goToGoalsTracker = goToGoalsTracker;

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goals & Progress - Mentor Mentee</title>
+    <link rel="stylesheet" href="goals-tracker.css">
+    <link rel="stylesheet" href="../utils/toast.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand" onclick="goToDashboard()">
+            <div class="navbar-logo">L</div>
+            <span class="navbar-title">Mentor - Mentee</span>
+        </div>
+        <div class="navbar-actions">
+            <button onclick="goToDashboard()">Dashboard</button>
+            <button onclick="goToProfile()">Profile</button>
+            <button onclick="goToMessages()">Messages</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="stats-overview">
+            <div class="stat-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-value">8</div>
+                <div class="stat-label">Active Goals</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-value">23</div>
+                <div class="stat-label">Completed Goals</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📈</div>
+                <div class="stat-value">67%</div>
+                <div class="stat-label">Overall Progress</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-value">12</div>
+                <div class="stat-label">Achievements</div>
+            </div>
+        </div>
+
+        <div class="goals-header">
+            <h1>My Goals</h1>
+            <button class="btn-new-goal" onclick="openNewGoalModal()">+ Create New Goal</button>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="tab-btn active" onclick="filterGoals('all')">All Goals</button>
+            <button class="tab-btn" onclick="filterGoals('active')">Active</button>
+            <button class="tab-btn" onclick="filterGoals('completed')">Completed</button>
+            <button class="tab-btn" onclick="filterGoals('career')">Career</button>
+            <button class="tab-btn" onclick="filterGoals('skills')">Skills</button>
+        </div>
+
+        <div class="goals-grid" id="goalsGrid">
+            <div class="goal-card">
+                <div class="goal-header">
+                    <div>
+                        <span class="goal-category">Career</span>
+                        <h3 class="goal-title">Become a Senior Developer</h3>
+                    </div>
+                </div>
+                <p class="goal-description">Advance my career to a senior developer position by mastering advanced technologies and leadership skills.</p>
+                
+                <div class="goal-progress">
+                    <div class="progress-header">
+                        <span class="progress-label">Overall Progress</span>
+                        <span class="progress-percentage">65%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 65%"></div>
+                    </div>
+                </div>
+
+                <div class="goal-milestones">
+                    <div class="milestone-title">Milestones:</div>
+                    <div class="milestone-item">
+                        <input type="checkbox" class="milestone-checkbox"  checked>
+                        <span class="milestone-text completed">Complete advanced React course</span>
+                    </div>
+                    <div class="milestone-item">
+                        <input type="checkbox" class="milestone-checkbox" checked>
+                        <span class="milestone-text completed">Lead 2 major projects</span>
+                    </div>
+                    <div class="milestone-item">
+                        <input type="checkbox" class="milestone-checkbox">
+                        <span class="milestone-text">Mentor 3 junior developers</span>
+                    </div>
+                    <div class="milestone-item">
+                        <input type="checkbox" class="milestone-checkbox">
+                        <span class="milestone-text">Present at tech conference</span>
+                    </div>
+                </div>
+
+                <div class="goal-footer">
+                    <span class="goal-deadline">📅 Target: June 2026</span>
+                    <div class="goal-actions">
+                        <button class="btn-action">Edit</button>
+                        <button class="btn-action btn-complete">Mark Complete</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="goal-card">
+                <div class="goal-header">
+                    <div>
+                        <span class="goal-category">Skills</span>
+                        <h3 class="goal-title">Master System Design</h3>
+                    </div>
+                </div>
+                <p class="goal-description">Learn and practice system design principles to prepare for senior-level technical interviews.</p>
+                
+                <div class="goal-progress">
+                    <div class="progress-header">
+                        <span class="progress-label">Overall Progress</span>
+                        <span class="progress-percentage">40%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 40%"></div>
+                    </div>
+                </div>
+
+                <div class="goal-milestones">
+                    <div class="milestone-title">Milestones:</div>
+                    <div class="milestone-item">
+                        <input type="checkbox" class="milestone-checkbox" checked>
+                        <span class="milestone-text completed">Read "Designing Data-Intensive Applications"</span>
+                    </div>
+                    <div class="milestone-item">
+                        <input type="checkbox" class="milestone-checkbox">
+                        <span class="milestone-text">Complete 20 system design problems</span>
+                    </div>
+                    <div class="milestone-item">
+                        <input type="checkbox" class="milestone-checkbox">
+                        <span class="milestone-text">Design a scalable application</span>
+                    </div>
+                </div>
+
+                <div class="goal-footer">
+                    <span class="goal-deadline">📅 Target: April 2026</span>
+                    <div class="goal-actions">
+                        <button class="btn-action">Edit</button>
+                        <button class="btn-action btn-complete">Mark Complete</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="goal-card completed">
+                <div class="goal-header">
+                    <div>
+                        <span class="goal-category">Career</span>
+                        <h3 class="goal-title">Earn AWS Certification ✅</h3>
+                    </div>
+                </div>
+                <p class="goal-description">Successfully passed AWS Solutions Architect Associate certification exam.</p>
+                
+                <div class="goal-progress">
+                    <div class="progress-header">
+                        <span class="progress-label">Overall Progress</span>
+                        <span class="progress-percentage">100%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 100%"></div>
+                    </div>
+                </div>
+
+                <div class="goal-footer">
+                    <span class="goal-deadline">✅ Completed: Jan 15, 2026</span>
+                    <div class="goal-actions">
+                        <button class="btn-action">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="achievements-section">
+            <h2 class="achievements-header">🏆 Your Achievements</h2>
+            <div class="achievements-grid">
+                <div class="achievement-badge">
+                    <div class="badge-icon">🎯</div>
+                    <div class="badge-name">Goal Setter</div>
+                    <div class="badge-description">Created 10 goals</div>
+                </div>
+                <div class="achievement-badge">
+                    <div class="badge-icon">🔥</div>
+                    <div class="badge-name">On Fire</div>
+                    <div class="badge-description">30-day streak</div>
+                </div>
+                <div class="achievement-badge">
+                    <div class="badge-icon">⭐</div>
+                    <div class="badge-name">Achiever</div>
+                    <div class="badge-description">Completed 20 goals</div>
+                </div>
+                <div class="achievement-badge">
+                    <div class="badge-icon">📚</div>
+                    <div class="badge-name">Knowledge Seeker</div>
+                    <div class="badge-description">50 learning hours</div>
+                </div>
+                <div class="achievement-badge">
+                    <div class="badge-icon">💪</div>
+                    <div class="badge-name">Persistent</div>
+                    <div class="badge-description">Never gave up</div>
+                </div>
+                <div class="achievement-badge">
+                    <div class="badge-icon">🚀</div>
+                    <div class="badge-name">Fast Learner</div>
+                    <div class="badge-description">Quick progress</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Goal Modal -->
+    <div class="modal" id="newGoalModal">
+    <div class="modal-content">
+        <h2 class="modal-header">Create New Goal</h2>
+
+        <div class="form-group">
+        <label class="form-label">Goal Title</label>
+        <input type="text" id="goalTitle"  class="form-input" placeholder="e.g., Learn Python Programming">
+        </div>
+
+        <div class="form-group">
+        <label class="form-label">Category</label>
+        <select id="goalCategory" class="form-select">
+            <option value="">Select category...</option>
+            <option value="Career">Career</option>
+            <option value="Skills">Skills</option>
+            <option value="Personal Development">Personal Development</option>
+            <option value="Networking">Networking</option>
+        </select>
+        </div>
+
+        <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea id="goalDescription" class="form-textarea"
+            placeholder="Describe your goal in detail..."></textarea>
+        </div>
+
+        <div class="form-group">
+        <label class="form-label">Target Date</label>
+        <input type="date" id="goalDate" class="form-input">
+        </div>
+
+        <div class="form-group">
+        <label class="form-label">Milestones</label>
+        <div class="milestone-inputs" id="milestoneContainer">
+            <input type="text" class="form-input milestone-input" placeholder="Milestone 1">
+        </div>
+        <button type="button" class="btn-add-milestone" style="margin-top: 10px;"
+            onclick="addMilestoneInput()">+ Add More Milestones</button>
+        </div>
+
+        <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeNewGoalModal()">Cancel</button>
+        <button class="btn-submit" onclick="createGoal()">Create Goal</button>
+        </div>
+    </div>
+    </div>
+
+    <script type="module" src="goals-tracker.js"></script>
+</body>
+</html>
