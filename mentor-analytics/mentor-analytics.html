@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - Mentor Mentee</title>
+    <link rel="stylesheet" href="./mentor-analytics.css">
+    <link rel="stylesheet" href="../nav-menu/nav-menu.css">
+    <link rel="stylesheet" href="../utils/toast.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="./mentor-dashboard.html" class="navbar-brand">
+            <div class="navbar-logo">L</div>
+            <span class="navbar-title">Mentor - Mentee</span>
+        </a>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>📊 Your Analytics</h1>
+            <div class="time-filter">
+                <button class="time-btn" onclick="filterByTime('week')">This Week</button>
+                <button class="time-btn active" onclick="filterByTime('month')">This Month</button>
+                <button class="time-btn" onclick="filterByTime('year')">This Year</button>
+                <button class="time-btn" onclick="filterByTime('all')">All Time</button>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">📅</div>
+                    <div class="stat-trend">↑ 12%</div>
+                </div>
+                <div class="stat-value">127</div>
+                <div class="stat-label">Total Sessions</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-trend">↑ 0.2</div>
+                </div>
+                <div class="stat-value">4.9</div>
+                <div class="stat-label">Average Rating</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-trend">↑ 3</div>
+                </div>
+                <div class="stat-value">12</div>
+                <div class="stat-label">Active Mentees</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-trend">↑ 15h</div>
+                </div>
+                <div class="stat-value">254h</div>
+                <div class="stat-label">Total Hours</div>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <h2 class="chart-title">Sessions Per Month</h2>
+            <div class="bar-chart">
+                <div style="flex-direction: column; display: flex; align-items: center;">
+                    <div class="bar" style="height: 60%;">
+                        <span class="bar-value">12</span>
+                    </div>
+                    <div class="bar-label">Jan</div>
+                </div>
+                <div style="flex-direction: column; display: flex; align-items: center;">
+                    <div class="bar" style="height: 80%;">
+                        <span class="bar-value">16</span>
+                    </div>
+                    <div class="bar-label">Feb</div>
+                </div>
+                <div style="flex-direction: column; display: flex; align-items: center;">
+                    <div class="bar" style="height: 70%;">
+                        <span class="bar-value">14</span>
+                    </div>
+                    <div class="bar-label">Mar</div>
+                </div>
+                <div style="flex-direction: column; display: flex; align-items: center;">
+                    <div class="bar" style="height: 90%;">
+                        <span class="bar-value">18</span>
+                    </div>
+                    <div class="bar-label">Apr</div>
+                </div>
+                <div style="flex-direction: column; display: flex; align-items: center;">
+                    <div class="bar" style="height: 75%;">
+                        <span class="bar-value">15</span>
+                    </div>
+                    <div class="bar-label">May</div>
+                </div>
+                <div style="flex-direction: column; display: flex; align-items: center;">
+                    <div class="bar" style="height: 100%;">
+                        <span class="bar-value">20</span>
+                    </div>
+                    <div class="bar-label">Jun</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="leaderboard">
+            <h2 class="chart-title">Top Mentoring Topics</h2>
+
+            <div class="leaderboard-item">
+                <div class="rank gold">1</div>
+                <div class="topic-info">
+                    <div class="topic-name">Career Development</div>
+                    <div class="topic-sessions">45 sessions</div>
+                </div>
+                <div class="topic-rating">
+                    ⭐ 4.9
+                </div>
+            </div>
+
+            <div class="leaderboard-item">
+                <div class="rank silver">2</div>
+                <div class="topic-info">
+                    <div class="topic-name">Technical Skills</div>
+                    <div class="topic-sessions">38 sessions</div>
+                </div>
+                <div class="topic-rating">
+                    ⭐ 4.8
+                </div>
+            </div>
+
+            <div class="leaderboard-item">
+                <div class="rank bronze">3</div>
+                <div class="topic-info">
+                    <div class="topic-name">Leadership & Management</div>
+                    <div class="topic-sessions">32 sessions</div>
+                </div>
+                <div class="topic-rating">
+                    ⭐ 4.9
+                </div>
+            </div>
+
+            <div class="leaderboard-item">
+                <div class="rank">4</div>
+                <div class="topic-info">
+                    <div class="topic-name">Interview Preparation</div>
+                    <div class="topic-sessions">12 sessions</div>
+                </div>
+                <div class="topic-rating">
+                    ⭐ 5.0
+                </div>
+            </div>
+        </div>
+
+        <div class="reviews-section">
+            <h2 class="chart-title">Recent Reviews from Mentees</h2>
+
+            <div class="review-item">
+                <div class="review-header">
+                    <span class="reviewer-name">Sarah Johnson</span>
+                    <span class="review-rating">⭐⭐⭐⭐⭐</span>
+                </div>
+                <div class="review-text">
+                    "Absolutely amazing mentor! Helped me navigate my career transition and provided invaluable guidance on system design. Highly recommend!"
+                </div>
+                <div class="review-date">2 days ago</div>
+            </div>
+
+            <div class="review-item">
+                <div class="review-header">
+                    <span class="reviewer-name">Michael Chen</span>
+                    <span class="review-rating">⭐⭐⭐⭐⭐</span>
+                </div>
+                <div class="review-text">
+                    "Very patient and knowledgeable. The sessions are well-structured and I always leave with actionable insights."
+                </div>
+                <div class="review-date">5 days ago</div>
+            </div>
+
+            <div class="review-item">
+                <div class="review-header">
+                    <span class="reviewer-name">Emily Davis</span>
+                    <span class="review-rating">⭐⭐⭐⭐⭐</span>
+                </div>
+                <div class="review-text">
+                    "Great experience! Really understands the challenges of transitioning into UX design and provided excellent portfolio feedback."
+                </div>
+                <div class="review-date">1 week ago</div>
+            </div>
+        </div>
+    </div>
+
+<script type="module" src="./mentor-analytics.js"></script>
+</body>
+</html>

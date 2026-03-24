@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Mentor Mentee</title>
+    <link rel="stylesheet" href="settings.css">
+    <link rel="stylesheet" href="../utils/toast.css">
+
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand" onclick="goToDashboard()">
+            <div class="navbar-logo">L</div>
+            <span class="navbar-title">Mentor - Mentee</span>
+        </div>
+        <div class="navbar-actions">
+            <button onclick="goToDashboard()">Dashboard</button>
+            <button onclick="goToProfile()">Profile</button>
+            <button onclick="goToMessages()">Messages</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="settings-layout">
+            <div class="settings-sidebar">
+                <h2 class="sidebar-title">Settings</h2>
+                <ul class="sidebar-menu">
+                    <li class="menu-item active" onclick="switchSection('account')">
+                        <span class="menu-icon">👤</span>
+                        Account
+                    </li>
+                    <li class="menu-item" onclick="switchSection('notifications')">
+                        <span class="menu-icon">🔔</span>
+                        Notifications
+                    </li>
+                    <li class="menu-item" onclick="switchSection('privacy')">
+                        <span class="menu-icon">🔒</span>
+                        Privacy & Security
+                    </li>
+                    <li class="menu-item" onclick="switchSection('preferences')">
+                        <span class="menu-icon">⚙️</span>
+                        Preferences
+                    </li>
+                    <li class="menu-item" onclick="switchSection('billing')">
+                        <span class="menu-icon">💳</span>
+                        Billing
+                    </li>
+                </ul>
+            </div>
+
+            <div class="settings-content">
+                <!-- Account Section -->
+                <div class="content-section active" id="account">
+                    <h1 class="section-header">Account Settings</h1>
+                    <p class="section-description">Manage your account information and preferences</p>
+
+                    <div class="setting-group">
+                        <h3 class="setting-title">Personal Information</h3>
+                        <p class="setting-subtitle">Update your personal details</p>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-input" value="John Doe">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-input" value="john.doe@example.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-input" placeholder="+1 (555) 000-0000">
+                        </div>
+
+                        <button class="btn-save">Save Changes</button>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="setting-title">Change Password</h3>
+                        <p class="setting-subtitle">Update your password regularly to keep your account secure</p>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Current Password</label>
+                            <input type="password" class="form-input">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">New Password</label>
+                            <input type="password" class="form-input">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Confirm New Password</label>
+                            <input type="password" class="form-input">
+                        </div>
+
+                        <button class="btn-save">Update Password</button>
+                    </div>
+
+                    <div class="danger-zone">
+                        <h3 class="danger-title">Danger Zone</h3>
+                        <p class="danger-description">Once you delete your account, there is no going back. Please be certain.</p>
+                        <button class="btn-danger" onclick="confirmDeleteAccount()">Delete Account</button>
+                    </div>
+                </div>
+
+                <!-- Notifications Section -->
+                <div class="content-section" id="notifications">
+                    <h1 class="section-header">Notification Preferences</h1>
+                    <p class="section-description">Choose what notifications you want to receive</p>
+
+                    <div class="setting-group">
+                        <h3 class="setting-title">Email Notifications</h3>
+                        
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span class="toggle-title">New Messages</span>
+                                <span class="toggle-description">Get notified when you receive a new message</span>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span class="toggle-title">Session Reminders</span>
+                                <span class="toggle-description">Receive reminders before scheduled sessions</span>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span class="toggle-title">Connection Requests</span>
+                                <span class="toggle-description">Get notified about new connection requests</span>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span class="toggle-title">Weekly Summary</span>
+                                <span class="toggle-description">Receive a weekly summary of your activity</span>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="setting-title">Push Notifications</h3>
+                        
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span class="toggle-title">Enable Push Notifications</span>
+                                <span class="toggle-description">Receive instant notifications on your device</span>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="btn-save">Save Preferences</button>
+                </div>
+
+                <!-- Privacy Section -->
+                <div class="content-section" id="privacy">
+                    <h1 class="section-header">Privacy & Security</h1>
+                    <p class="section-description">Control who can see your information and how it's used</p>
+
+                    <div class="setting-group">
+                        <h3 class="setting-title">Profile Visibility</h3>
+                        
+                        <div class="privacy-option">
+                            <div class="option-info">
+                                <h4>Public Profile</h4>
+                                <p>Anyone can view your profile</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="privacy-option">
+                            <div class="option-info">
+                                <h4>Show Online Status</h4>
+                                <p>Let others see when you're online</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="privacy-option">
+                            <div class="option-info">
+                                <h4>Show Email</h4>
+                                <p>Display your email on your profile</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="setting-title">Two-Factor Authentication</h3>
+                        <p class="setting-subtitle">Add an extra layer of security to your account</p>
+                        
+                        <button class="btn-save">Enable 2FA</button>
+                        <button class="btn-secondary">Learn More</button>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="setting-title">Active Sessions</h3>
+                        <p class="setting-subtitle">Manage devices where you're logged in</p>
+                        
+                        <div class="notification-item">
+                            <strong>Current Device</strong> - Chrome on Windows<br>
+                            <small style="color: #7fae92;">Active now</small>
+                        </div>
+
+                        <button class="btn-secondary">Log Out Other Sessions</button>
+                    </div>
+                </div>
+
+                <!-- Preferences Section -->
+                <div class="content-section" id="preferences">
+                    <h1 class="section-header">Preferences</h1>
+                    <p class="section-description">Customize your experience</p>
+
+                    <div class="setting-group">
+                        <h3 class="setting-title">Appearance</h3>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Theme</label>
+                            <select class="form-select">
+                                <option>Light</option>
+                                <option>Dark</option>
+                                <option>Auto</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Language</label>
+                            <select class="form-select">
+                                <option>English</option>
+                                <option>Spanish</option>
+                                <option>French</option>
+                                <option>German</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="setting-title">Availability</h3>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Time Zone</label>
+                            <select class="form-select">
+                                <option>Pacific Time (PT)</option>
+                                <option>Mountain Time (MT)</option>
+                                <option>Central Time (CT)</option>
+                                <option>Eastern Time (ET)</option>
+                            </select>
+                        </div>
+
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span class="toggle-title">Available for Matching</span>
+                                <span class="toggle-description">Allow others to send you connection requests</span>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="btn-save">Save Preferences</button>
+                </div>
+
+                <!-- Billing Section -->
+                <div class="content-section" id="billing">
+                    <h1 class="section-header">Billing & Subscription</h1>
+                    <p class="section-description">Manage your subscription and payment methods</p>
+
+                    <div class="setting-group">
+                        <h3 class="setting-title">Current Plan</h3>
+                        <div class="notification-item">
+                            <strong>Free Plan</strong><br>
+                            <small style="color: #7fae92;">Upgrade to Premium for more features</small>
+                        </div>
+                        <button class="btn-save">Upgrade to Premium</button>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="setting-title">Payment Method</h3>
+                        <p class="setting-subtitle">No payment method on file</p>
+                        <button class="btn-secondary">Add Payment Method</button>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="setting-title">Billing History</h3>
+                        <p class="setting-subtitle">No billing history available</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="settings.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages - Mentor - Mentee</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <link rel="stylesheet" href="messaging.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand" onclick="goToDashboard()">
+            <div class="navbar-logo">
+                L
+            </div>
+            <span class="navbar-title">Mentor - Mentee</span>
+        </div>
+        <div class="navbar-actions">
+            <button onclick="goToDashboard()">
+                <i class="fas fa-home"></i> Dashboard
+            </button>
+            <button onclick="goToProfile()">
+                <i class="fas fa-user"></i> Profile
+            </button>
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button onclick="goToDashboard()"><i class="fas fa-home"></i> Dashboard</button>
+        <button onclick="goToProfile()"><i class="fas fa-user"></i> Profile</button>
+        <button onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+
+    <div class="container">
+        <div class="messages-wrapper">
+            <!-- Conversations Sidebar -->
+            <div class="conversations-list" id="conversationsList">
+                <div class="conversations-header">
+                    <h2><i class="fas fa-comments"></i> Messages</h2>
+                    <input type="text" class="search-box" id="searchConversations" placeholder="Search conversations..." oninput="searchConversations()">
+                </div>
+                <div class="conversations-container" id="conversationsContainer">
+                    <div class="loading-conversations" id="loadingConversations">
+                        <div class="spinner"></div>
+                        <p>Loading conversations...</p>
+                    </div>
+                    <!-- Conversations will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Chat Area -->
+            <div class="chat-area" id="chatArea">
+                <!-- Empty State -->
+                <div class="chat-empty-state" id="emptyState">
+                    <div class="empty-icon">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <h3>Select a conversation</h3>
+                    <p>Choose a mentor or mentee to start messaging</p>
+                </div>
+
+                <!-- Active Chat -->
+                <div class="chat-active" id="activeChat" style="display: none;">
+                    <div class="chat-header">
+                        <div class="chat-user-info">
+                            <div class="chat-avatar" id="chatAvatar">👤</div>
+                            <div class="chat-user-details">
+                                <h3 id="chatUserName">Select a user</h3>
+                                <span class="chat-user-status" id="chatUserStatus">
+                                    <span class="offline-status">● Offline</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="chat-actions">
+                            <button class="action-btn" onclick="refreshMessages()" title="Refresh">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="messages-container" id="messagesContainer">
+                        <!-- Messages will be loaded here -->
+                    </div>
+
+                    <div class="message-input-area">
+                        <textarea class="message-input" id="messageInput" placeholder="Type your message..." rows="1" onkeypress="handleKeyPress(event)" oninput="handleTyping()"></textarea>
+                        <button class="send-btn" onclick="sendMessage()" id="sendBtn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="messaging.js"></script>
+</body>
+</html>

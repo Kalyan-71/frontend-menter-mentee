@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Mentees - Mentor - Mentee</title>
+    <link rel="stylesheet" href="my-mentees.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand" onclick="goToDashboard()">
+            <div class="navbar-logo">
+                L
+            </div>
+            <span class="navbar-title">Mentor - Mentee</span>
+        </div>
+        <div class="navbar-actions">
+            <button onclick="goToDashboard()">
+                <i class="fas fa-home"></i> Dashboard
+            </button>
+            <button onclick="goToProfile()">
+                <i class="fas fa-user"></i> Profile
+            </button>
+            <button onclick="goToMessages()">
+                <i class="fas fa-envelope"></i> Messages
+            </button>
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button onclick="goToDashboard()"><i class="fas fa-home"></i> Dashboard</button>
+        <button onclick="goToProfile()"><i class="fas fa-user"></i> Profile</button>
+        <button onclick="goToMessages()"><i class="fas fa-envelope"></i> Messages</button>
+        <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+
+    <div class="container">
+        <!-- Access Denied (if not mentor) -->
+        <div id="accessDenied" class="access-denied" style="display: none;">
+            <div class="denied-icon">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h2>Access Denied</h2>
+            <p>This page is only accessible to mentors managing their mentees.</p>
+            <button class="btn-primary" onclick="goToDashboard()">Go to Dashboard</button>
+        </div>
+
+        <!-- Main Content -->
+        <div id="mainContent">
+            <div class="page-header">
+                <h1>My Mentees</h1>
+                <p>Manage and track progress of all your mentees</p>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-row" id="statsRow">
+                <div class="stat-box">
+                    <div class="stat-value" id="totalMentees">0</div>
+                    <div class="stat-label">Total Mentees</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="activeMentees">0</div>
+                    <div class="stat-label">Active</div>
+                </div>
+                <div class="stat-box highlight">
+                    <div class="stat-value" id="pendingMentees">0</div>
+                    <div class="stat-label">Pending Requests</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="totalSessions">0</div>
+                    <div class="stat-label">Total Sessions</div>
+                </div>
+            </div>
+
+            <!-- Pending Requests Section -->
+            <div id="pendingSection" class="section-wrapper" style="display: none;">
+                <div class="section-header">
+                    <h2><i class="fas fa-clock"></i> Pending Requests</h2>
+                    <span class="badge" id="pendingCount">0</span>
+                </div>
+                <div class="mentees-grid" id="pendingGrid"></div>
+            </div>
+
+            <!-- Active Mentees Section -->
+            <div id="activeSection" class="section-wrapper">
+                <div class="section-header">
+                    <h2><i class="fas fa-users"></i> Active Mentees</h2>
+                    <div class="section-actions">
+                        <button class="filter-btn active" onclick="filterMentees('all')">All</button>
+                        <button class="filter-btn" onclick="filterMentees('high-progress')">High Progress</button>
+                        <button class="filter-btn" onclick="filterMentees('needs-attention')">Needs Attention</button>
+                    </div>
+                </div>
+                <div class="mentees-grid" id="activeGrid"></div>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <div class="empty-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h3>No mentees yet</h3>
+                <p>When mentees send you connection requests, they will appear here.</p>
+                <button class="btn-primary" onclick="goToDashboard()">Go to Dashboard</button>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading your mentees...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mentee Detail Modal -->
+    <div id="menteeModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3><i class="fas fa-user-graduate"></i> Mentee Progress</h3>
+                <button class="close-btn" onclick="closeMenteeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="menteeModalBody">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="my-mentees.js"></script>
+</body>
+</html>

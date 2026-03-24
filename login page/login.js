@@ -48,9 +48,29 @@ async function handleLogin(){
     if(!data.success){
         notify(data.message , "error");
     }else{
-        const {email,fullname,role,username} = data.data.user;
+        const {email,fullname,role,username , createdAt} = data.data.user;
+        const JWTToken = data.data.JWTToken;
         setItem("CURRENT-USER" ,{email,fullname,role,username});
-        notify("Login Successfull" , "success" , "../dashboard/dashboard.html");
+// ----------------------------
+         // Store user data
+            const userRole = role.charAt(0).toUpperCase() + role.slice(1);
+            localStorage.setItem('username', username);
+            localStorage.setItem('fullName', fullname);
+            localStorage.setItem('email', email);
+            localStorage.setItem('role', userRole);
+            localStorage.setItem('joinedDate', new Date(createdAt).toISOString());
+            localStorage.setItem('accessToken', JWTToken);
+            
+            notify("Login Successfull" , "success");
+            
+            // Redirect to role-specific dashboard
+            if (userRole === 'Mentor') {
+                window.location.href = '../dashboard/mentor-dashboard/mentor-dashboard.html';
+            } else {
+                window.location.href = '../dashboard/mentee-dashboard/mentee-dashboard.html';
+            }
+// ------------------------------
+        
     }
     
 }

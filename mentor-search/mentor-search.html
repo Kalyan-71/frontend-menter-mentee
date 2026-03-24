@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Mentors - Mentor - Mentee</title>
+    <link rel="stylesheet" href="mentor-search.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand" onclick="goToDashboard()">
+            <div class="navbar-logo">
+                L
+            </div>
+            <span class="navbar-title">Mentor - Mentee</span>
+        </div>
+        <div class="navbar-actions">
+            <button onclick="goToDashboard()">
+                <i class="fas fa-home"></i> Dashboard
+            </button>
+            <button onclick="goToProfile()">
+                <i class="fas fa-user"></i> Profile
+            </button>
+            <button onclick="goToMessages()">
+                <i class="fas fa-envelope"></i> Messages
+            </button>
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button onclick="goToDashboard()"><i class="fas fa-home"></i> Dashboard</button>
+        <button onclick="goToProfile()"><i class="fas fa-user"></i> Profile</button>
+        <button onclick="goToMessages()"><i class="fas fa-envelope"></i> Messages</button>
+        <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+
+    <div class="container">
+        <!-- Access Denied Message (if not mentee) -->
+        <div id="accessDenied" class="access-denied" style="display: none;">
+            <div class="denied-icon">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h2>Access Denied</h2>
+            <p>This page is only accessible to mentees looking for mentors.</p>
+            <button class="btn-primary" onclick="goToDashboard()">Go to Dashboard</button>
+        </div>
+
+        <!-- Main Content -->
+        <div id="mainContent">
+            <div class="page-header">
+                <h1 id="pageTitle">Find Your Perfect Mentor</h1>
+                <p id="pageDescription">Connect with experienced professionals who can guide your journey</p>
+            </div>
+
+            <!-- My Mentors Section (if has connections) -->
+            <div id="myMentorsSection" class="my-mentors-section" style="display: none;">
+                <h2><i class="fas fa-user-check"></i> My Mentors</h2>
+                <div class="my-mentors-grid" id="myMentorsGrid"></div>
+            </div>
+
+            <!-- Search Section -->
+            <div class="search-filter-section">
+                <div class="search-bar">
+                    <div class="search-input-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input type="text" class="search-input" placeholder="Search by name, skills, or industry..." id="searchInput" onkeyup="handleSearch()">
+                    </div>
+                    <button class="search-btn" onclick="searchMentors()">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+
+                <div class="filters">
+                    <div class="filter-group">
+                        <select id="industryFilter" onchange="applyFilters()">
+                            <option value="">All Industries</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Business">Business</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Education">Education</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Design">Design</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select id="experienceFilter" onchange="applyFilters()">
+                            <option value="">All Experience Levels</option>
+                            <option value="0-5">0-5 years</option>
+                            <option value="5-10">5-10 years</option>
+                            <option value="10+">10+ years</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select id="availabilityFilter" onchange="applyFilters()">
+                            <option value="">Any Availability</option>
+                            <option value="Weekends">Weekends</option>
+                            <option value="Evenings">Evenings</option>
+                            <option value="Flexible">Flexible</option>
+                        </select>
+                    </div>
+                    <button class="clear-filters-btn" onclick="clearFilters()">
+                        <i class="fas fa-times"></i> Clear
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Header -->
+            <div class="results-header">
+                <span class="results-count" id="resultsCount">Loading mentors...</span>
+                <div class="sort-wrapper">
+                    <select class="sort-dropdown" id="sortSelect" onchange="sortMentors()">
+                        <option value="relevance">Sort by Relevance</option>
+                        <option value="experience">Most Experienced</option>
+                        <option value="rating">Highest Rated</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state">
+                <div class="spinner"></div>
+                <p>Finding mentors for you...</p>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <div class="empty-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3>No mentors found</h3>
+                <p>Try adjusting your filters or search criteria</p>
+                <button class="btn-primary" onclick="clearFilters()">Clear Filters</button>
+            </div>
+
+            <!-- Mentors Grid -->
+            <div class="matches-grid" id="mentorsGrid"></div>
+        </div>
+    </div>
+
+    <!-- Connection Request Modal -->
+    <div id="connectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-paper-plane"></i> Send Connection Request</h3>
+                <button class="close-btn" onclick="closeConnectModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="mentor-preview" id="mentorPreview"></div>
+                <div class="form-group">
+                    <label class="form-label">Personal Message (Optional)</label>
+                    <textarea id="connectMessage" class="form-textarea" placeholder="Introduce yourself and explain why you'd like to connect..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" onclick="closeConnectModal()">Cancel</button>
+                <button class="submit-btn" id="sendRequestBtn" onclick="sendConnectionRequest()">
+                    <i class="fas fa-paper-plane"></i> Send Request
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="mentor-search.js"></script>
+</body>
+</html>

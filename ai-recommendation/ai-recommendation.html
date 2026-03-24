@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Recommendations - Mentor Mentee</title>
+    <link rel="stylesheet" href="ai-recommendation.css">
+    <link rel="stylesheet" href="../utils/toast.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand" onclick="goToDashboard()">
+            <div class="navbar-logo">L</div>
+            <span class="navbar-title">Mentor - Mentee</span>
+        </div>
+        <div class="navbar-actions">
+            <button onclick="goToDashboard()">Dashboard</button>
+            <button onclick="goToProfile()">Profile</button>
+            <button onclick="goToMessages()">Messages</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <div class="ai-icon">🤖</div>
+            <h1>AI-Powered Recommendations</h1>
+            <p>Personalized mentor and mentee suggestions based on your profile, goals, and activity</p>
+        </div>
+
+        <div class="recommendations-section">
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-icon">🎯</div>
+                    <div class="insight-value">95%</div>
+                    <div class="insight-label">Average Match Score</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-icon">✨</div>
+                    <div class="insight-value">12</div>
+                    <div class="insight-label">Perfect Matches</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-icon">📊</div>
+                    <div class="insight-value">24</div>
+                    <div class="insight-label">Based on Goals</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-icon">🔄</div>
+                    <div class="insight-value">Today</div>
+                    <div class="insight-label">Last Updated</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="recommendations-section">
+            <h2 class="section-title">
+                <span>🌟 Top Recommendations For You</span>
+                <span class="ai-badge">AI Powered</span>
+            </h2>
+
+            <div class="loading-animation" id="loadingAnimation">
+                <div class="spinner"></div>
+                <p style="color: #7fae92;">AI is analyzing your profile and finding the best matches...</p>
+            </div>
+
+            <div class="recommendation-grid" id="recommendationsGrid">
+                <div class="recommendation-card">
+                    <span class="match-score">98% Match</span>
+                    <div class="card-avatar">👩</div>
+                    <h3 class="card-name">Dr. Sarah Mitchell</h3>
+                    <p class="card-title">Senior Software Architect • 15 years exp.</p>
+
+                    <div class="ai-reason">
+                        <div class="reason-title">
+                            <span>🤖</span>
+                            <span>Why we recommend Sarah:</span>
+                        </div>
+                        <p class="reason-text">
+                            Perfect alignment with your career goal of "Become a Senior Developer". Sarah has successfully mentored 12 developers into senior roles and specializes in system design - your target skill.
+                        </p>
+                    </div>
+
+                    <div class="matching-skills">
+                        <span class="skill-match">System Design</span>
+                        <span class="skill-match">Leadership</span>
+                        <span class="skill-match">React</span>
+                    </div>
+
+                    <div class="card-actions">
+                        <button class="btn-connect" onclick="sendConnectionRequest('Dr. Sarah Mitchell')">Connect</button>
+                        <button class="btn-view" onclick="viewProfile('Dr. Sarah Mitchell')">View</button>
+                    </div>
+                </div>
+
+                <div class="recommendation-card">
+                    <span class="match-score">96% Match</span>
+                    <div class="card-avatar">👨</div>
+                    <h3 class="card-name">James Rodriguez</h3>
+                    <p class="card-title">Product Manager • 10 years exp.</p>
+
+                    <div class="ai-reason">
+                        <div class="reason-title">
+                            <span>🤖</span>
+                            <span>Why we recommend James:</span>
+                        </div>
+                        <p class="reason-text">
+                            Based on your recent activities in product discussions and your interest in "Product Management", James is an ideal match. He's mentored 8+ aspiring PMs in your industry.
+                        </p>
+                    </div>
+
+                    <div class="matching-skills">
+                        <span class="skill-match">Product Strategy</span>
+                        <span class="skill-match">Agile</span>
+                        <span class="skill-match">Data Analysis</span>
+                    </div>
+
+                    <div class="card-actions">
+                        <button class="btn-connect" onclick="sendConnectionRequest('James Rodriguez')">Connect</button>
+                        <button class="btn-view" onclick="viewProfile('James Rodriguez')">View</button>
+                    </div>
+                </div>
+
+                <div class="recommendation-card">
+                    <span class="match-score">94% Match</span>
+                    <div class="card-avatar">🧑</div>
+                    <h3 class="card-name">Alex Thompson</h3>
+                    <p class="card-title">UX Design Lead • 8 years exp.</p>
+
+                    <div class="ai-reason">
+                        <div class="reason-title">
+                            <span>🤖</span>
+                            <span>Why we recommend Alex:</span>
+                        </div>
+                        <p class="reason-text">
+                            Your profile shows growing interest in design. Alex's expertise in UX complements your technical background - a powerful combination many successful developers pursue.
+                        </p>
+                    </div>
+
+                    <div class="matching-skills">
+                        <span class="skill-match">UI/UX Design</span>
+                        <span class="skill-match">User Research</span>
+                        <span class="skill-match">Figma</span>
+                    </div>
+
+                    <div class="card-actions">
+                        <button class="btn-connect" onclick="sendConnectionRequest('Alex Thompson')">Connect</button>
+                        <button class="btn-view" onclick="viewProfile('Alex Thompson')">View</button>
+                    </div>
+                </div>
+
+                <div class="recommendation-card">
+                    <span class="match-score">92% Match</span>
+                    <div class="card-avatar">👩</div>
+                    <h3 class="card-name">Linda Chen</h3>
+                    <p class="card-title">Marketing Director • 12 years exp.</p>
+
+                    <div class="ai-reason">
+                        <div class="reason-title">
+                            <span>🤖</span>
+                            <span>Why we recommend Linda:</span>
+                        </div>
+                        <p class="reason-text">
+                            AI detected your goal "Build Personal Brand". Linda excels in digital marketing and has helped 50+ professionals establish their online presence effectively.
+                        </p>
+                    </div>
+
+                    <div class="matching-skills">
+                        <span class="skill-match">Digital Marketing</span>
+                        <span class="skill-match">Brand Strategy</span>
+                        <span class="skill-match">Content</span>
+                    </div>
+
+                    <div class="card-actions">
+                        <button class="btn-connect" onclick="sendConnectionRequest('Linda Chen')">Connect</button>
+                        <button class="btn-view" onclick="viewProfile('Linda Chen')">View</button>
+                    </div>
+                </div>
+
+                <div class="recommendation-card">
+                    <span class="match-score">90% Match</span>
+                    <div class="card-avatar">👨</div>
+                    <h3 class="card-name">Michael Park</h3>
+                    <p class="card-title">Financial Analyst • 7 years exp.</p>
+
+                    <div class="ai-reason">
+                        <div class="reason-title">
+                            <span>🤖</span>
+                            <span>Why we recommend Michael:</span>
+                        </div>
+                        <p class="reason-text">
+                            While not your primary field, Michael's financial expertise can help you understand tech company valuations and investment strategies - valuable for career advancement.
+                        </p>
+                    </div>
+
+                    <div class="matching-skills">
+                        <span class="skill-match">Investment</span>
+                        <span class="skill-match">Risk Management</span>
+                        <span class="skill-match">Excel</span>
+                    </div>
+
+                    <div class="card-actions">
+                        <button class="btn-connect" onclick="sendConnectionRequest('Michael Park')">Connect</button>
+                        <button class="btn-view" onclick="viewProfile('Michael Park')">View</button>
+                    </div>
+                </div>
+
+                <div class="recommendation-card">
+                    <span class="match-score">89% Match</span>
+                    <div class="card-avatar">👩</div>
+                    <h3 class="card-name">Emma Wilson</h3>
+                    <p class="card-title">HR Director • 11 years exp.</p>
+
+                    <div class="ai-reason">
+                        <div class="reason-title">
+                            <span>🤖</span>
+                            <span>Why we recommend Emma:</span>
+                        </div>
+                        <p class="reason-text">
+                            Emma specializes in career development and can provide insights on navigating corporate structures, salary negotiations, and leadership opportunities in tech.
+                        </p>
+                    </div>
+
+                    <div class="matching-skills">
+                        <span class="skill-match">Talent Development</span>
+                        <span class="skill-match">Leadership</span>
+                        <span class="skill-match">Culture</span>
+                    </div>
+
+                    <div class="card-actions">
+                        <button class="btn-connect" onclick="sendConnectionRequest('Emma Wilson')">Connect</button>
+                        <button class="btn-view" onclick="viewProfile('Emma Wilson')">View</button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="refresh-btn" onclick="refreshRecommendations()">
+                    <span>🔄</span>
+                    <span>Refresh Recommendations</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="ai-recommendation.js"></script>
+</body>
+</html>

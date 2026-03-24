@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Example - Mentor Mentee</title>
+    <link rel="stylesheet" href="../utils/toast.css">
+    <link rel="stylesheet" href="./nav-menu.css">
+</head>
+<body>
+    <!-- Main Navigation Bar -->
+    <nav class="main-navbar">
+        <div class="navbar-container">
+            <!-- Brand/Logo -->
+            <a href="./mentor-dashboard.html" class="navbar-brand">
+                <div class="navbar-logo">L</div>
+                <span class="navbar-title">Mentor - Mentee</span>
+            </a>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+
+            <!-- Navigation Menu -->
+            <ul class="nav-menu" id="navMenu">
+                <!-- Links will be dynamically loaded based on role -->
+            </ul>
+
+            <!-- User Menu -->
+            <div class="user-menu">
+                <span class="role-badge" id="roleBadge">User</span>
+                <div class="user-profile" onclick="toggleDropdown(event)">
+                    <div class="user-avatar">JD</div>
+                    <span class="user-name">John Doe</span>
+                    <span class="dropdown-arrow">▼</span>
+                </div>
+
+                <!-- Dropdown Menu -->
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="./profile.html" class="dropdown-item">
+                        <span>👤</span>
+                        <span>My Profile</span>
+                    </a>
+                    <a href="./settings.html" class="dropdown-item">
+                        <span>⚙️</span>
+                        <span>Settings</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item" onclick="event.preventDefault(); alert('Help & Support')">
+                        <span>❓</span>
+                        <span>Help & Support</span>
+                    </a>
+                    <a href="#" class="dropdown-item" onclick="event.preventDefault(); alert('Report Issue')">
+                        <span>🐛</span>
+                        <span>Report an Issue</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item danger" onclick="event.preventDefault(); logout()">
+                        <span>🚪</span>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Demo Content -->
+    <!-- <div class="demo-content">
+        <div class="demo-card">
+            <h1>Universal Navigation Menu</h1>
+            <p>This navigation bar can be copied and used across all your pages. It includes responsive design, dropdown menus, notification badges, and smooth animations.</p>
+
+            <div class="code-block">
+                <pre>
+<strong>📁 Complete Navigation Structure:</strong>
+
+<strong>Main Navigation Links:</strong>
+🏠 Dashboard       → ../dashboard/dashboard.html
+🔍 Find Matches    → ../search/search.html
+💬 Messages        → ../messages/messages.html (Enhanced with video/voice/files)
+🎯 Goals           → ../goals/goals.html
+👤 Profile         → ../profile/profile.html
+
+<strong>Dropdown Menu Links:</strong>
+👤 My Profile      → ../profile/profile.html
+⚙️ Settings        → ../settings/settings.html
+❓ Help & Support  → (Coming Soon)
+🐛 Report Issue    → (Coming Soon)
+🚪 Logout          → Clears session and returns to login
+
+<strong>Other Pages:</strong>
+🤖 AI Recommendations → ../recommendations/ai-recommendations.html
+🔐 Login             → ../login page/login.html
+📝 Sign Up           → ../signup page/signUp.html
+🔑 Forgot Password   → ../auth/forgot-password.html
+🏡 Welcome/Home      → ../index.html
+
+<strong>❌ Removed Pages:</strong>
+📅 Session Scheduler → REMOVED (as requested)
+
+<strong>📋 How to Use This Navbar on Each Page:</strong>
+
+1. Copy the entire &lt;nav&gt; section (lines 40-110)
+2. Copy the CSS styles (lines 6-300)
+3. Copy the JavaScript (lines 400-450)
+4. Paste into your page
+5. Adjust the "active" class based on current page:
+   
+   Example for Dashboard:
+   &lt;a href="../dashboard/dashboard.html" class="nav-link active"&gt;
+
+6. Update relative paths if needed based on folder depth
+
+<strong>🎨 Features:</strong>
+✅ Direct HTML links (no JavaScript required for navigation)
+✅ Works with browser back/forward buttons
+✅ Mobile responsive hamburger menu
+✅ User dropdown with profile links
+✅ Notification badges on Messages
+✅ Sticky navbar (stays on top while scrolling)
+✅ Active page indicator
+✅ Logout functionality with confirmation
+✅ Automatic user name/avatar from localStorage
+
+<strong>🔧 Dynamic Elements:</strong>
+• User name loads from localStorage
+• User initials auto-generated for avatar
+• Notification count can be updated dynamically
+• Active link highlights current page
+                </pre>
+            </div>
+        </div>
+    </div> -->
+<script type="module" src="nav-menu.js"></script>
+</body>
+</html>

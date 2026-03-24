@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Profile - Mentor - Mentee</title>
+    <link rel="stylesheet" href="public-profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-brand" onclick="goBack()">
+            <div class="navbar-logo">
+                L
+            </div>
+            <span class="navbar-title">Back to Search</span>
+        </div>
+        <div class="navbar-actions">
+            <button onclick="goToDashboard()">
+                <i class="fas fa-home"></i> Dashboard
+            </button>
+            <button onclick="goToMessages()">
+                <i class="fas fa-envelope"></i> Messages
+            </button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Loading State -->
+        <div id="loadingState" class="loading-state">
+            <div class="spinner"></div>
+            <p>Loading profile...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="errorState" class="error-state" style="display: none;">
+            <div class="error-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3>Failed to load profile</h3>
+            <button class="btn-primary" onclick="goBack()">Go Back</button>
+        </div>
+
+        <!-- Profile Content -->
+        <div id="profileContent" style="display: none;">
+            
+            <!-- Header Card -->
+            <div class="profile-header-card">
+                <div class="profile-cover"></div>
+                
+                <div class="profile-header-content">
+                    <div class="profile-avatar-section">
+                        <div class="profile-avatar" id="mentorAvatar">
+                            <span id="avatarPlaceholder">👤</span>
+                            <img id="avatarImg" src="" alt="" style="display: none;">
+                        </div>
+                    </div>
+
+                    <div class="profile-info-section">
+                        <div class="profile-name-row">
+                            <h1 class="profile-name" id="mentorName">Loading...</h1>
+                            <span class="verified-badge">
+                                <i class="fas fa-check-circle"></i> Verified Mentor
+                            </span>
+                        </div>
+                        
+                        <p class="profile-title" id="mentorTitle">Loading...</p>
+
+                        <div class="profile-meta">
+                            <span class="meta-item" id="locationMeta">
+                                <i class="fas fa-map-marker-alt"></i> --
+                            </span>
+                            <span class="meta-item" id="experienceMeta">
+                                <i class="fas fa-briefcase"></i> --
+                            </span>
+                            <span class="meta-item" id="rateMeta">
+                                <i class="fas fa-dollar-sign"></i> --
+                            </span>
+                            <span class="meta-item" id="availabilityMeta">
+                                <i class="fas fa-clock"></i> --
+                            </span>
+                        </div>
+
+                        <!-- Connection Status Banner -->
+                        <div id="connectionBanner" class="connection-banner">
+                            <!-- Dynamic content -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Row -->
+                <div class="profile-stats-row">
+                    <div class="stat-card">
+                        <div class="stat-value" id="statRating">--</div>
+                        <div class="stat-label">Rating</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="statSessions">--</div>
+                        <div class="stat-label">Sessions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="statMentees">--</div>
+                        <div class="stat-label">Mentees</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="statGoals">--</div>
+                        <div class="stat-label">Goals Created</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="content-grid">
+                
+                <!-- Left Column -->
+                <div class="content-left">
+                    
+                    <!-- About Section -->
+                    <section class="profile-section">
+                        <h2 class="section-title"><i class="fas fa-user"></i> About</h2>
+                        <p class="bio-text" id="mentorBio">
+                            No bio available
+                        </p>
+                    </section>
+
+                    <!-- Skills Section -->
+                    <section class="profile-section">
+                        <h2 class="section-title"><i class="fas fa-lightbulb"></i> Skills & Expertise</h2>
+                        <div class="skills-container" id="skillsContainer">
+                            <!-- Dynamic skills -->
+                        </div>
+                    </section>
+
+                    <!-- Experience Section -->
+                    <section class="profile-section">
+                        <h2 class="section-title"><i class="fas fa-briefcase"></i> Experience</h2>
+                        <div class="timeline" id="experienceTimeline">
+                            <!-- Dynamic experience -->
+                        </div>
+                    </section>
+
+                    <!-- Education Section -->
+                    <section class="profile-section">
+                        <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Education</h2>
+                        <div class="timeline" id="educationTimeline">
+                            <!-- Dynamic education -->
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Column -->
+                <div class="content-right">
+                    
+                    <!-- Connection Actions Card -->
+                    <section class="profile-section action-card" id="actionCard">
+                        <div class="action-content" id="actionContent">
+                            <!-- Dynamic action buttons -->
+                        </div>
+                    </section>
+
+                    <!-- Shared Goals Card (Only if connected) -->
+                    <section class="profile-section goals-card" id="sharedGoalsCard" style="display: none;">
+                        <h2 class="section-title"><i class="fas fa-tasks"></i> Shared Goals</h2>
+                        <div class="shared-goals-list" id="sharedGoalsList">
+                            <!-- Dynamic goals -->
+                        </div>
+                    </section>
+
+                    <!-- Quick Info Card -->
+                    <section class="profile-section info-card">
+                        <h2 class="section-title"><i class="fas fa-info-circle"></i> Quick Info</h2>
+                        <div class="info-list">
+                            <div class="info-item">
+                                <span class="info-icon"><i class="fas fa-envelope"></i></span>
+                                <div class="info-content">
+                                    <span class="info-label">Response Time</span>
+                                    <span class="info-value">Usually within 24 hours</span>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-icon"><i class="fas fa-video"></i></span>
+                                <div class="info-content">
+                                    <span class="info-label">Session Format</span>
+                                    <span class="info-value">Video calls, Chat</span>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-icon"><i class="fas fa-calendar"></i></span>
+                                <div class="info-content">
+                                    <span class="info-label">Availability</span>
+                                    <span class="info-value" id="quickAvailability">--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Safety Tips -->
+                    <section class="profile-section tips-card">
+                        <h2 class="section-title"><i class="fas fa-shield-alt"></i> Safety Tips</h2>
+                        <ul class="tips-list">
+                            <li>Never share personal financial information</li>
+                            <li>Use platform messaging for initial contact</li>
+                            <li>Verify credentials before starting</li>
+                            <li>Report any suspicious behavior</li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connection Request Modal -->
+    <div id="connectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-paper-plane"></i> Send Connection Request</h3>
+                <button class="close-btn" onclick="closeConnectModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="mentor-preview" id="modalMentorPreview"></div>
+                <div class="form-group">
+                    <label class="form-label">Personal Message (Optional)</label>
+                    <textarea id="connectMessage" class="form-textarea" 
+                        placeholder="Introduce yourself and explain what you hope to learn..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeConnectModal()">Cancel</button>
+                <button class="btn-primary" id="sendRequestBtn" onclick="sendConnectionRequest()">
+                    <i class="fas fa-paper-plane"></i> Send Request
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="public-profile.js"></script>
+</body>
+</html>

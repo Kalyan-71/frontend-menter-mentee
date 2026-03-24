@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Mentor Mentee Platform</title>
+    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../utils/toast.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-brand" onclick="goToDashboard()">
+            <div class="navbar-logo">
+               L 
+            </div>
+            <span class="navbar-title">Mentor - Mentee</span>
+        </div>  
+        <div class="navbar-actions">
+            <button class="nav-btn" onclick="goToDashboard()">
+                <i class="fas fa-home"></i> Dashboard
+            </button>
+            <button class="nav-btn" onclick="goToMessages()">
+                <i class="fas fa-envelope"></i> Messages
+            </button>
+            <button class="nav-btn" onclick="goToSettings()">
+                <i class="fas fa-cog"></i> Settings
+            </button>
+            <button class="nav-btn logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-nav-btn" onclick="goToDashboard()">
+            <i class="fas fa-home"></i> Dashboard
+        </button>
+        <button class="mobile-nav-btn" onclick="goToMessages()">
+            <i class="fas fa-envelope"></i> Messages
+        </button>
+        <button class="mobile-nav-btn" onclick="goToSettings()">
+            <i class="fas fa-cog"></i> Settings
+        </button>
+        <button class="mobile-nav-btn logout-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </div>
+
+    <!-- Profile Completion Banner -->
+    <div id="completionBanner" class="completion-banner" style="display: none;">
+        <div class="banner-content">
+            <div class="banner-icon">
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div class="banner-text">
+                <strong>Complete your profile</strong>
+                <span>Fill in your details to unlock all features and start connecting</span>
+            </div>
+            <button class="banner-btn" onclick="scrollToIncompleteSection()">
+                Complete Now
+            </button>
+        </div>
+        <button class="banner-close" onclick="dismissBanner()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Loading State -->
+        <div id="loadingState" class="loading-state">
+            <div class="spinner"></div>
+            <p>Loading your profile...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="errorState" class="error-state" style="display: none;">
+            <div class="error-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3>Failed to load profile</h3>
+            <p>Please check your connection and try again</p>
+            <button class="retry-btn" onclick="loadProfile()">Retry</button>
+        </div>
+
+        <!-- Profile Content -->
+        <div id="profileContent" style="display: none;">
+            
+            <!-- Profile Header Card -->
+            <div class="profile-header-card">
+                <div class="profile-cover">
+                    <div class="cover-gradient"></div>
+                </div>
+                
+                <div class="profile-header-content">
+                    <div class="profile-avatar-section">
+                        <div class="profile-avatar" onclick="triggerAvatarUpload()">
+                            <img id="avatarImg" src="" alt="Profile" style="display: none;">
+                            <div id="avatarPlaceholder" class="avatar-placeholder">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="avatar-overlay">
+                                <i class="fas fa-camera"></i>
+                                <span>Change Photo</span>
+                            </div>
+                            <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="uploadAvatar(this)">
+                        </div>
+                    </div>
+
+                    <div class="profile-info-section">
+                        <div class="profile-name-row">
+                            <h1 class="profile-name" id="displayName">Loading...</h1>
+                            <span class="profile-role-badge" id="displayRole">
+                                <i class="fas fa-user-graduate"></i> Loading...
+                            </span>
+                        </div>
+                        
+                        <p class="profile-headline" id="headlineDisplay">
+                            <span class="placeholder-text">Add a headline to describe yourself...</span>
+                        </p>
+
+                        <div class="profile-meta">
+                            <span class="meta-item" id="locationMeta">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span class="placeholder-text">Add location</span>
+                            </span>
+                            <span class="meta-item" id="industryMeta">
+                                <i class="fas fa-briefcase"></i>
+                                <span class="placeholder-text">Add industry</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Progress Section -->
+                    <div class="profile-progress-section">
+                        <div class="progress-header">
+                            <span class="progress-label">Profile Completion</span>
+                            <span class="progress-percentage" id="progressText">0%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="progressBar">
+                                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <p class="progress-hint" id="progressHint">Complete required fields to unlock all features</p>
+                    </div>
+                </div>
+
+                <!-- Stats Row -->
+                <div class="profile-stats-row">
+                    <div class="stat-card">
+                        <div class="stat-icon connections">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="connectionsCount">0</span>
+                            <span class="stat-label" id="connectionsLabel">Connections</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon sessions">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="sessionsCount">0</span>
+                            <span class="stat-label">Sessions</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon goals">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="goalsCount">0</span>
+                            <span class="stat-label">Goals</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content Grid -->
+            <div class="content-grid">
+                
+                <!-- Left Column -->
+                <div class="content-left">
+                    
+                    <!-- About Section -->
+                    <section class="profile-section" id="aboutSection" data-required="true">
+                        <div class="section-header">
+                            <div class="section-title-wrapper">
+                                <h2 class="section-title">About Me</h2>
+                                <span class="required-badge">Required</span>
+                            </div>
+                            <button class="edit-btn" onclick="toggleEdit('about')" id="aboutEditBtn">
+                                <i class="fas fa-pen"></i> Edit
+                            </button>
+                        </div>
+                        
+                        <div class="section-content" id="aboutView">
+                            <p class="bio-text placeholder-text" id="bioDisplay">
+                                Tell us about yourself, your background, and what you're looking for...
+                            </p>
+                        </div>
+                        
+                        <div class="section-content edit-mode" id="aboutEdit" style="display: none;">
+                            <div class="form-group">
+                                <textarea 
+                                    id="bioInput" 
+                                    class="form-textarea"
+                                    placeholder="Share your story, expertise, or learning goals..."
+                                    maxlength="1000"
+                                    rows="5"
+                                ></textarea>
+                                <div class="input-footer">
+                                    <span class="char-count"><span id="bioCharCount">0</span>/1000</span>
+                                    <span class="input-hint">Be specific to attract better matches</span>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button class="cancel-btn" onclick="toggleEdit('about')">Cancel</button>
+                                <button class="save-btn" onclick="saveEdit('about')">
+                                    <i class="fas fa-check"></i> Save Changes
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Skills Section -->
+                    <section class="profile-section" id="skillsSection">
+                        <div class="section-header">
+                            <div class="section-title-wrapper">
+                                <h2 class="section-title">Skills & Expertise</h2>
+                                <span class="optional-badge">Optional</span>
+                            </div>
+                            <button class="edit-btn" onclick="toggleSkillsEdit()" id="skillsEditBtn">
+                                <i class="fas fa-pen"></i> Edit
+                            </button>
+                        </div>
+                        
+                        <div class="section-content" id="skillsView">
+                            <div class="skills-container" id="skillsContainer">
+                                <span class="empty-state">
+                                    <i class="fas fa-lightbulb"></i>
+                                    Add skills to showcase your expertise
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="section-content edit-mode" id="skillsEdit" style="display: none;">
+                            <div class="skills-input-wrapper">
+                                <div class="skill-input-group">
+                                    <input 
+                                        type="text" 
+                                        id="skillInput" 
+                                        class="form-input"
+                                        placeholder="Type a skill and press Enter (e.g., JavaScript, Leadership)"
+                                        onkeypress="handleSkillInput(event)"
+                                    >
+                                    <button class="add-skill-btn" onclick="addSkill()">
+                                        <i class="fas fa-plus"></i> Add
+                                    </button>
+                                </div>
+                                <div class="popular-skills">
+                                    <span class="popular-label">Popular:</span>
+                                    <button class="popular-skill" onclick="quickAddSkill('JavaScript')">JavaScript</button>
+                                    <button class="popular-skill" onclick="quickAddSkill('Python')">Python</button>
+                                    <button class="popular-skill" onclick="quickAddSkill('Leadership')">Leadership</button>
+                                    <button class="popular-skill" onclick="quickAddSkill('Project Management')">Project Management</button>
+                                </div>
+                            </div>
+                            <div class="skills-edit-list" id="skillsEditList"></div>
+                            <div class="form-actions">
+                                <button class="cancel-btn" onclick="toggleSkillsEdit()">Cancel</button>
+                                <button class="save-btn" onclick="saveSkills()">
+                                    <i class="fas fa-check"></i> Save Skills
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Experience Section -->
+                    <section class="profile-section" id="experienceSection">
+                        <div class="section-header">
+                            <div class="section-title-wrapper">
+                                <h2 class="section-title">Experience</h2>
+                                <span class="optional-badge">Optional</span>
+                            </div>
+                            <button class="add-btn" onclick="openExperienceModal()">
+                                <i class="fas fa-plus"></i> Add
+                            </button>
+                        </div>
+                        
+                        <div class="section-content">
+                            <div class="timeline" id="experienceContainer">
+                                <div class="empty-state">
+                                    <i class="fas fa-briefcase"></i>
+                                    <p>No experience added yet</p>
+                                    <span>Add your work history to build credibility</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Education Section -->
+                    <section class="profile-section" id="educationSection">
+                        <div class="section-header">
+                            <div class="section-title-wrapper">
+                                <h2 class="section-title">Education</h2>
+                                <span class="optional-badge">Optional</span>
+                            </div>
+                            <button class="add-btn" onclick="openEducationModal()">
+                                <i class="fas fa-plus"></i> Add
+                            </button>
+                        </div>
+                        
+                        <div class="section-content">
+                            <div class="timeline" id="educationContainer">
+                                <div class="empty-state">
+                                    <i class="fas fa-graduation-cap"></i>
+                                    <p>No education added yet</p>
+                                    <span>Add your academic background</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Column -->
+                <div class="content-right">
+                    
+                    <!-- Personal Info Card -->
+                    <section class="profile-section info-card" id="infoSection" data-required="true">
+                        <div class="section-header compact">
+                            <div class="section-title-wrapper">
+                                <h2 class="section-title">Personal Info</h2>
+                                <span class="required-badge">Required</span>
+                            </div>
+                            <button class="edit-btn icon-only" onclick="toggleEdit('info')" id="infoEditBtn">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="section-content" id="infoView">
+                            <div class="info-list">
+                                <div class="info-item">
+                                    <span class="info-icon"><i class="fas fa-user"></i></span>
+                                    <div class="info-content">
+                                        <span class="info-label">Full Name</span>
+                                        <span class="info-value placeholder-text" id="fullnameDisplay">Add your name</span>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-icon"><i class="fas fa-envelope"></i></span>
+                                    <div class="info-content">
+                                        <span class="info-label">Email</span>
+                                        <span class="info-value" id="emailDisplay">-</span>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-icon"><i class="fas fa-map-marker-alt"></i></span>
+                                    <div class="info-content">
+                                        <span class="info-label">Location</span>
+                                        <span class="info-value placeholder-text" id="locationDisplay">Add location</span>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-icon"><i class="fas fa-industry"></i></span>
+                                    <div class="info-content">
+                                        <span class="info-label">Industry</span>
+                                        <span class="info-value placeholder-text" id="industryDisplay">Add industry</span>
+                                    </div>
+                                </div>
+                                <div class="info-item" id="experienceRow">
+                                    <span class="info-icon"><i class="fas fa-clock"></i></span>
+                                    <div class="info-content">
+                                        <span class="info-label" id="experienceLabel">Experience</span>
+                                        <span class="info-value placeholder-text" id="experienceDisplay">Add experience</span>
+                                    </div>
+                                </div>
+                                <div class="info-item mentor-only" id="rateRow" style="display: none;">
+                                    <span class="info-icon"><i class="fas fa-dollar-sign"></i></span>
+                                    <div class="info-content">
+                                        <span class="info-label">Hourly Rate</span>
+                                        <span class="info-value placeholder-text" id="rateDisplay">Set your rate</span>
+                                    </div>
+                                </div>
+                                <div class="info-item mentor-only" id="availabilityRow" style="display: none;">
+                                    <span class="info-icon"><i class="fas fa-calendar"></i></span>
+                                    <div class="info-content">
+                                        <span class="info-label">Availability</span>
+                                        <span class="info-value placeholder-text" id="availabilityDisplay">Set availability</span>
+                                    </div>
+                                </div>
+                                <div class="info-item mentee-only" id="careerGoalRow" style="display: none;">
+                                    <span class="info-icon"><i class="fas fa-bullseye"></i></span>
+                                    <div class="info-content">
+                                        <span class="info-label">Career Goal</span>
+                                        <span class="info-value placeholder-text" id="careerGoalDisplay">Set your goal</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="section-content edit-mode" id="infoEdit" style="display: none;">
+                            <div class="compact-form">
+                                <div class="form-group">
+                                    <label class="form-label">Full Name <span class="required">*</span></label>
+                                    <input type="text" id="fullnameInput" class="form-input" placeholder="Your full name">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" id="emailInput" class="form-input" disabled>
+                                    <span class="input-note">Email cannot be changed</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Location <span class="required">*</span></label>
+                                    <input type="text" id="locationInput" class="form-input" placeholder="City, Country">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Industry <span class="required">*</span></label>
+                                    <select id="industryInput" class="form-select">
+                                        <option value="">Select Industry</option>
+                                        <option value="Technology">Technology</option>
+                                        <option value="Healthcare">Healthcare</option>
+                                        <option value="Finance">Finance</option>
+                                        <option value="Education">Education</option>
+                                        <option value="Marketing">Marketing</option>
+                                        <option value="Design">Design</option>
+                                        <option value="Consulting">Consulting</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Years of Experience</label>
+                                    <select id="experienceInput" class="form-select">
+                                        <option value="">Select Experience</option>
+                                        <option value="0-1 years">0-1 years</option>
+                                        <option value="1-3 years">1-3 years</option>
+                                        <option value="3-5 years">3-5 years</option>
+                                        <option value="5-10 years">5-10 years</option>
+                                        <option value="10+ years">10+ years</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mentor-only" style="display: none;">
+                                    <label class="form-label">Hourly Rate</label>
+                                    <div class="input-prefix">
+                                        <span class="prefix">$</span>
+                                        <input type="number" id="rateInput" class="form-input" placeholder="75">
+                                        <span class="suffix">/hour</span>
+                                    </div>
+                                </div>
+                                <div class="form-group mentor-only" style="display: none;">
+                                    <label class="form-label">Availability</label>
+                                    <input type="text" id="availabilityInput" class="form-input" placeholder="e.g., Weekends, Evenings">
+                                </div>
+                                <div class="form-group mentee-only" style="display: none;">
+                                    <label class="form-label">Career Goal</label>
+                                    <input type="text" id="careerGoalInput" class="form-input" placeholder="e.g., Become a Senior Developer">
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button class="cancel-btn" onclick="toggleEdit('info')">Cancel</button>
+                                <button class="save-btn" onclick="saveEdit('info')">
+                                    <i class="fas fa-check"></i> Save
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Quick Tips Card -->
+                    <section class="profile-section tips-card" id="tipsSection">
+                        <div class="section-header compact">
+                            <h2 class="section-title"><i class="fas fa-lightbulb"></i> Tips</h2>
+                        </div>
+                        <div class="tips-list">
+                            <div class="tip-item" id="tipBio">
+                                <i class="fas fa-circle"></i>
+                                <span>Add a compelling bio</span>
+                            </div>
+                            <div class="tip-item" id="tipLocation">
+                                <i class="fas fa-circle"></i>
+                                <span>Add your location</span>
+                            </div>
+                            <div class="tip-item" id="tipIndustry">
+                                <i class="fas fa-circle"></i>
+                                <span>Select your industry</span>
+                            </div>
+                            <div class="tip-item" id="tipSkills">
+                                <i class="fas fa-circle"></i>
+                                <span>Add at least 3 skills</span>
+                            </div>
+                            <div class="tip-item" id="tipExperience">
+                                <i class="fas fa-circle"></i>
+                                <span>Add work experience</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Complete Profile CTA -->
+                    <section class="profile-section cta-card" id="completeSection" style="display: none;">
+                        <div class="cta-content">
+                            <div class="cta-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <h3>Ready to Launch?</h3>
+                            <p>Complete your profile to start connecting with mentors and mentees.</p>
+                            <button class="complete-profile-btn" onclick="completeProfile()">
+                                <span>Complete My Profile</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Experience Modal -->
+    <div id="experienceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-briefcase"></i> Add Experience</h3>
+                <button class="close-btn" onclick="closeModal('experienceModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Job Title <span class="required">*</span></label>
+                    <input type="text" id="expTitle" class="form-input" placeholder="e.g., Senior Software Engineer">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Company <span class="required">*</span></label>
+                    <input type="text" id="expCompany" class="form-input" placeholder="e.g., Google">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Start Date</label>
+                        <input type="month" id="expStartDate" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">End Date</label>
+                        <input type="month" id="expEndDate" class="form-input">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="expCurrent" onchange="toggleCurrentJob()"> Current Position
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" onclick="closeModal('experienceModal')">Cancel</button>
+                <button class="save-btn" onclick="saveExperience()">
+                    <i class="fas fa-plus"></i> Add Experience
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Education Modal -->
+    <div id="educationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-graduation-cap"></i> Add Education</h3>
+                <button class="close-btn" onclick="closeModal('educationModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Degree <span class="required">*</span></label>
+                    <input type="text" id="eduDegree" class="form-input" placeholder="e.g., Bachelor of Science in Computer Science">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Institution <span class="required">*</span></label>
+                    <input type="text" id="eduInstitution" class="form-input" placeholder="e.g., Stanford University">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Start Year</label>
+                        <input type="number" id="eduStartYear" class="form-input" placeholder="2016" min="1950" max="2030">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">End Year</label>
+                        <input type="number" id="eduEndYear" class="form-input" placeholder="2020" min="1950" max="2030">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" onclick="closeModal('educationModal')">Cancel</button>
+                <button class="save-btn" onclick="saveEducation()">
+                    <i class="fas fa-plus"></i> Add Education
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content small">
+            <div class="modal-body center">
+                <div class="warning-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3>Delete Item?</h3>
+                <p>Are you sure you want to remove this? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer center">
+                <button class="cancel-btn" onclick="closeModal('deleteModal')">Cancel</button>
+                <button class="delete-confirm-btn" id="confirmDeleteBtn">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script  src="./profile.js"></script>
+</body>
+</html>

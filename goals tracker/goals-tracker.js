@@ -4,7 +4,12 @@ import { notify } from "../utils/toast.js";
 
 
 function goToDashboard() {
-    window.location.href = '../dashboard/dashboard.html';
+    const role = localStorage.getItem('role');
+    if (role === 'Mentor') {
+        window.location.href = '../dashboard/mentor-dashboard/mentor-dashboard.html';
+    } else {
+        window.location.href = '../dashboard/mentee-dashboard/mentee-dashboard.html';
+    }
 }
 
 function goToProfile() {
@@ -57,13 +62,17 @@ async function createGoal() {
   const description = document.getElementById("goalDescription").value;
   const targetDate = document.getElementById("goalDate").value;
 
-  const milestoneInputs = document.querySelectorAll(".milestone-input");
+      // Check if creating goal from mentor context
+    const urlParams = new URLSearchParams(window.location.search);
+    const mentorId = urlParams.get('mentor');
 
+    
     if (!title || !category || !description) {
         notify("Title, Category, and Description are required" ,"error" );
         return;
     }
-
+    
+    const milestoneInputs = document.querySelectorAll(".milestone-input");
     const milestones = [];
     for (let input of milestoneInputs) {
         const value = input.value.trim();
@@ -72,10 +81,13 @@ async function createGoal() {
             input.focus();
             return;
         }
-        milestones.push({
-            todo: value,
-            isCompleted: false
-        });
+        if(value){
+
+            milestones.push({
+                todo: value,
+                isCompleted: false
+            });
+        }
     }
 
   const payload = {
@@ -83,16 +95,20 @@ async function createGoal() {
     category,
     description,
     targetDate: targetDate || null,
-    milestones
+    milestones,
+    mentorId 
   };
 
   const res = await createGoalsTracker(payload);///backend call and its result
     if(res.success){
         allGoals.unshift(res.data);
-        console.log(allGoals)
         renderGoals(allGoals);
         notify("Goal created successfully!", "success");
-        closeNewGoalModal();
+        closeNewGoalModal();        
+
+        if (mentorId) {
+            setTimeout(() => loadGoals(), 500);
+        }
     }
 }
 
