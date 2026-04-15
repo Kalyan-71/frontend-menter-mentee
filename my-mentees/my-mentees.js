@@ -1,8 +1,8 @@
 // ==========================================
 // CONFIGURATION
 // ==========================================
-// const API_BASE_URL = 'http://localhost:8000/api/v1';
-const API_BASE_URL = 'https://major-cudz.onrender.com/api/v1';
+const API_BASE_URL = 'http://localhost:8000/api/v1';
+// const API_BASE_URL = 'https://major-cudz.onrender.com/api/v1';
 
 
 // ==========================================
@@ -93,12 +93,12 @@ async function loadMentees() {
 // ==========================================
 function updateStats() {
     const total = pendingMentees.length + activeMentees.length;
-    const totalSessions = activeMentees.reduce((sum, m) => sum + (m.sessionsCount || 0), 0);
+    // const totalSessions = activeMentees.reduce((sum, m) => sum + (m.sessionsCount || 0), 0);
     
     document.getElementById('totalMentees').textContent = total;
     document.getElementById('activeMentees').textContent = activeMentees.length;
     document.getElementById('pendingMentees').textContent = pendingMentees.length;
-    document.getElementById('totalSessions').textContent = totalSessions;
+    // document.getElementById('totalSessions').textContent = totalSessions;
     document.getElementById('pendingCount').textContent = pendingMentees.length;
 }
 

@@ -110,6 +110,14 @@ async function createGoal() {
             setTimeout(() => loadGoals(), 500);
         }
     }
+
+    if(res.success){
+        allGoals.unshift(res.data);
+        renderGoals(allGoals);
+        updateStatsOverview(); // Add this line
+        notify("Goal created successfully!", "success");
+        closeNewGoalModal();        
+    }
 }
 
 
@@ -181,6 +189,9 @@ function renderGoals(goals){
             </div>
         `
     })     
+
+
+    updateStatsOverview();
 }
 
 
@@ -222,6 +233,40 @@ async function toggleMilestone(goalId, milestoneId, checked) {
   milestone.isCompleted = checked;
   renderGoals(allGoals);
 }
+
+
+
+function updateStatsOverview() {
+    const totalGoals = allGoals.length;
+    
+    // Calculate completed goals (all milestones completed)
+    const completedGoals = allGoals.filter(goal => 
+        goal.milestones.length > 0 && 
+        goal.milestones.every(m => m.isCompleted)
+    ).length;
+    
+    // Calculate active goals (not completed)
+    const activeGoals = totalGoals - completedGoals;
+    
+    // Calculate overall progress percentage
+    let totalProgress = 0;
+    allGoals.forEach(goal => {
+        const completedCount = goal.milestones.filter(m => m.isCompleted).length;
+        const total = goal.milestones.length;
+        const percentage = total === 0 ? 0 : (completedCount / total) * 100;
+        totalProgress += percentage;
+    });
+    const overallProgress = totalGoals === 0 ? 0 : Math.round(totalProgress / totalGoals);
+
+    // Update DOM
+    const statValues = document.querySelectorAll('.stats-overview .stat-value');
+    if (statValues.length >= 3) {
+        statValues[0].textContent = activeGoals;
+        statValues[1].textContent = completedGoals;
+        statValues[2].textContent = overallProgress + '%';
+    }
+}
+
 
 
 window.onload = loadGoals;

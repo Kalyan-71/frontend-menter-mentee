@@ -1,8 +1,8 @@
 // ==========================================
 // CONFIGURATION
 // ==========================================
-// const API_BASE_URL = 'http://localhost:8000/api/v1';
-const API_BASE_URL = 'https://major-cudz.onrender.com/api/v1';
+const API_BASE_URL = 'http://localhost:8000/api/v1';
+// const API_BASE_URL = 'https://major-cudz.onrender.com/api/v1';
 
 // ==========================================
 // STATE

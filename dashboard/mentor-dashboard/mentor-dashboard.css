@@ -49,10 +49,11 @@ body {
     display: flex;
     gap: 5px;
     align-items: center;
+    
 }
 
 .nav-link {
-    padding: 10px 18px;
+    padding: 10px 10px;
     color: #3e6b4f;
     text-decoration: none;
     border-radius: 10px;
